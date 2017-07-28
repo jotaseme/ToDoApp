@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Users
+ * Task
  *
- * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
+ * @ORM\Table(name="tasks", indexes={@ORM\Index(name="pk_users_idx", columns={"user"})})
  * @ORM\Entity
  */
-class Users
+class Task
 {
     /**
      * @var integer
@@ -24,37 +24,23 @@ class Users
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
-    private $name;
+    private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="surname", type="string", length=255, nullable=true)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
-    private $surname;
+    private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="status", type="string", length=100, nullable=true)
      */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=true)
-     */
-    private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=45, nullable=true)
-     */
-    private $role;
+    private $status;
 
     /**
      * @var \DateTime
@@ -69,6 +55,16 @@ class Users
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @var \AppBundle\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
     /**
      * @return int
@@ -89,81 +85,49 @@ class Users
     /**
      * @return string
      */
-    public function getName(): string
+    public function getTitle(): string
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
-     * @param string $name
+     * @param string $title
      */
-    public function setName(string $name)
+    public function setTitle(string $title)
     {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSurname(): string
-    {
-        return $this->surname;
-    }
-
-    /**
-     * @param string $surname
-     */
-    public function setSurname(string $surname)
-    {
-        $this->surname = $surname;
+        $this->title = $title;
     }
 
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getDescription(): string
     {
-        return $this->email;
+        return $this->description;
     }
 
     /**
-     * @param string $email
+     * @param string $description
      */
-    public function setEmail(string $email)
+    public function setDescription(string $description)
     {
-        $this->email = $email;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param string $password
-     */
-    public function setPassword(string $password)
-    {
-        $this->password = $password;
+        $this->description = $description;
     }
 
     /**
      * @return string
      */
-    public function getRole(): string
+    public function getStatus(): string
     {
-        return $this->role;
+        return $this->status;
     }
 
     /**
-     * @param string $role
+     * @param string $status
      */
-    public function setRole(string $role)
+    public function setStatus(string $status)
     {
-        $this->role = $role;
+        $this->status = $status;
     }
 
     /**
@@ -196,6 +160,22 @@ class Users
     public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param \AppBundle\Entity\User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
     }
 }
 

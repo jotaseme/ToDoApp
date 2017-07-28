@@ -18,7 +18,9 @@ framework:
     form: ~
     csrf_protection: ~
     validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
+    serializer:
+          enable_annotations: true
+          name_converter: 'serializer.name_converter.camel_case_to_snake_case'
     templating:
         engines: ['twig']
     default_locale: '%locale%'
@@ -67,3 +69,17 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+
+# FOSRest Configuration
+fos_rest:
+    body_listener: true
+    format_listener:
+        rules:
+            - { path: '^/api/v1', priorities: ['json'], fallback_format: json, prefer_extension: false }
+            - { path: '^/', stop: true }
+    param_fetcher_listener: true
+    view:
+        view_response_listener: 'force'
+        formats:
+            json: true

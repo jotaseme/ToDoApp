@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tasks
+ * User
  *
- * @ORM\Table(name="tasks", indexes={@ORM\Index(name="pk_users_idx", columns={"user"})})
+ * @ORM\Table(name="users", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
  * @ORM\Entity
  */
-class Tasks
+class User
 {
     /**
      * @var integer
@@ -24,23 +24,37 @@ class Tasks
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
-    private $title;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="surname", type="string", length=255, nullable=true)
      */
-    private $description;
+    private $surname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=100, nullable=true)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
-    private $status;
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="role", type="string", length=45, nullable=true)
+     */
+    private $role;
 
     /**
      * @var \DateTime
@@ -55,16 +69,6 @@ class Tasks
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
-
-    /**
-     * @var \Users
-     *
-     * @ORM\ManyToOne(targetEntity="Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
-     * })
-     */
-    private $user;
 
     /**
      * @return int
@@ -85,49 +89,81 @@ class Tasks
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getName(): string
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
-     * @param string $title
+     * @param string $name
      */
-    public function setTitle(string $title)
+    public function setName(string $name)
     {
-        $this->title = $title;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
+        $this->name = $name;
     }
 
     /**
      * @return string
      */
-    public function getStatus(): string
+    public function getSurname(): string
     {
-        return $this->status;
+        return $this->surname;
     }
 
     /**
-     * @param string $status
+     * @param string $surname
      */
-    public function setStatus(string $status)
+    public function setSurname(string $surname)
     {
-        $this->status = $status;
+        $this->surname = $surname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole(): string
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole(string $role)
+    {
+        $this->role = $role;
     }
 
     /**
@@ -160,22 +196,6 @@ class Tasks
     public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * @return \Users
-     */
-    public function getUser(): \Users
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param \Users $user
-     */
-    public function setUser(\Users $user)
-    {
-        $this->user = $user;
     }
 }
 
