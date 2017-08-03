@@ -77,4 +77,18 @@ class TasksController extends Controller
         }
         return $form;
     }
+
+    /**
+     * @Rest\Delete("/tasks/{task}")
+     * @View(serializerGroups={"task_detail"})
+     * @param Task $task
+     * @return Task|\Symfony\Component\Form\Form
+     */
+    public function deleteTasksAction(Task $task)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($task);
+        $em->flush();
+        return;
+    }
 }
