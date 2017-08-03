@@ -25,6 +25,18 @@ class TasksController extends Controller
     }
 
     /**
+     * @Rest\Get("/tasks/{task}")
+     * @View(serializerGroups={"task_detail"})
+     * @param Task $task
+     * @return Task
+     * @internal param Request $request
+     */
+    public function getTaskAction(Task $task)
+    {
+        return $task;
+    }
+
+    /**
      * @Rest\Post("/tasks")
      * @View(serializerGroups={"task_detail"})
      * @param Request $request
