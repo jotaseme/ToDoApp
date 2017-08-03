@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Task
  *
  * @ORM\Table(name="tasks", indexes={@ORM\Index(name="pk_users_idx", columns={"user"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TaskRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Task
 {
@@ -18,6 +20,7 @@ class Task
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"task_detail"})
      */
     private $id;
 
@@ -25,6 +28,7 @@ class Task
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @Groups({"task_detail"})
      */
     private $title;
 
@@ -32,6 +36,7 @@ class Task
      * @var string
      *
      * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     * @Groups({"task_detail"})
      */
     private $description;
 
@@ -39,6 +44,7 @@ class Task
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=100, nullable=true)
+     * @Groups({"task_detail"})
      */
     private $status;
 
@@ -46,6 +52,7 @@ class Task
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @Groups({"task_detail"})
      */
     private $createdAt;
 
@@ -53,6 +60,7 @@ class Task
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     * @Groups({"task_detail"})
      */
     private $updatedAt;
 
@@ -63,13 +71,14 @@ class Task
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user", referencedColumnName="id")
      * })
+     * @Groups({"task_detail"})
      */
     private $user;
 
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -77,7 +86,7 @@ class Task
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId($id)
     {
         $this->id = $id;
     }
@@ -85,7 +94,7 @@ class Task
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->title;
     }
@@ -93,7 +102,7 @@ class Task
     /**
      * @param string $title
      */
-    public function setTitle(string $title)
+    public function setTitle($title)
     {
         $this->title = $title;
     }
@@ -101,7 +110,7 @@ class Task
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
@@ -109,7 +118,7 @@ class Task
     /**
      * @param string $description
      */
-    public function setDescription(string $description)
+    public function setDescription($description)
     {
         $this->description = $description;
     }
@@ -117,7 +126,7 @@ class Task
     /**
      * @return string
      */
-    public function getStatus(): string
+    public function getStatus()
     {
         return $this->status;
     }
@@ -125,7 +134,7 @@ class Task
     /**
      * @param string $status
      */
-    public function setStatus(string $status)
+    public function setStatus($status)
     {
         $this->status = $status;
     }
@@ -133,7 +142,7 @@ class Task
     /**
      * @return \DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
@@ -149,7 +158,7 @@ class Task
     /**
      * @return \DateTime
      */
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
@@ -165,7 +174,7 @@ class Task
     /**
      * @return \AppBundle\Entity\User
      */
-    public function getUser(): User
+    public function getUser()
     {
         return $this->user;
     }
@@ -176,6 +185,24 @@ class Task
     public function setUser(User $user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+        $this->status = 1;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTime();
     }
 }
 

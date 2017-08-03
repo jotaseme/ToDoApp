@@ -1,6 +1,8 @@
 <?php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Task;
+use AppBundle\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -10,14 +12,57 @@ class TasksController extends Controller
 {
     /**
      * @Rest\Get("/tasks")
-     * @View(serializerGroups={"tasks"})
+     * @View(serializerGroups={"task_detail"})
      * @param Request $request
      * @return array
      */
     public function getTasksAction(Request $request)
     {
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         return $em->getRepository('AppBundle:Task')
-            ->findAll();
+            ->findAllByUser($user);
+    }
+
+    /**
+     * @Rest\Post("/tasks")
+     * @View(serializerGroups={"task_detail"})
+     * @param Request $request
+     * @return Task|\Symfony\Component\Form\Form
+     */
+    public function postTasksAction(Request $request)
+    {
+        $task = new Task();
+        $form = $this->createForm(TaskType::class, $task);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $task->setUser($user);
+            $em->persist($task);
+            $em->flush();
+            return $user;
+        }
+        return $form;
+    }
+
+    /**
+     * @Rest\Patch("/tasks/{task}")
+     * @View(serializerGroups={"task_detail"})
+     * @param Request $request
+     * @param Task $task
+     * @return Task|\Symfony\Component\Form\Form
+     */
+    public function patchTasksAction(Request $request, Task $task)
+    {
+        $form = $this->createForm(TaskType::class, $task, array("method" => 'PATCH'));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+            return $task;
+        }
+        return $form;
     }
 }
