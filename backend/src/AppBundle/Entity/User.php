@@ -25,6 +25,7 @@ class User implements UserInterface
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"user_detail"})
      */
     private $id;
 
@@ -34,6 +35,7 @@ class User implements UserInterface
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      *
      * @Assert\NotBlank()
+     * @Groups({"user_detail"})
      */
     private $name;
 
@@ -43,7 +45,7 @@ class User implements UserInterface
      * @ORM\Column(name="username", type="string", length=255, nullable=false, unique=true)
      *
      * @Assert\NotBlank()
-     * @Groups({"task_detail"})
+     * @Groups({"task_detail", "user_detail"})
      */
     private $username;
 
@@ -53,6 +55,7 @@ class User implements UserInterface
      * @ORM\Column(name="surname", type="string", length=255, nullable=true)
      *
      * @Assert\NotBlank()
+     * @Groups({"user_detail"})
      */
     private $surname;
 
@@ -63,6 +66,7 @@ class User implements UserInterface
      *
      * @Assert\NotBlank()
      * @Assert\Email()
+     * @Groups({"user_detail"})
      */
     private $email;
 
@@ -79,6 +83,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="role", type="string", length=45, nullable=true)
+     * @Groups({"user_detail"})
      */
     private $role;
 

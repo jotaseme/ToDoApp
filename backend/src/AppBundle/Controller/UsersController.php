@@ -53,4 +53,14 @@ class UsersController extends Controller
         }
         return $form;
     }
+
+    /**
+     * @Rest\Get("/user/authenticated"))
+     * @View(serializerGroups={"user_detail"})
+     * @return User
+     */
+    public function getUserAuthenticatedAction(){
+        $user = $this->getUser();
+        return $user;
+    }
 }
