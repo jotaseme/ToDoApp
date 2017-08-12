@@ -1,18 +1,35 @@
+import { CanActivate } from "@angular/router";
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
-import { Router } from "@angular/router";
-import { Token } from "../models/token";
+import { LoginService } from "./login.service";
+import {tokenNotExpired} from "angular2-jwt";
+
 
 @Injectable()
-export class AuthService {
+export class AuthService implements CanActivate {
 
-    constructor(public router: Router,
-                public http: Http) { }
+    constructor(private loginService: LoginService) {}
 
+    canActivate() {
+        console.log("canActivate");
+        return this.isLoggedIn();
+    }
 
-    logout(): void {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+    isLoggedIn(){
+        if (localStorage.getItem('user') && tokenNotExpired()){
+            return true;
+        }
+        //this.loginService.logout();
+        return tokenNotExpired();
+    }
+
+    logout(){
+        this.loginService.logout();
+    }
+
+    getUser(){
+        if(!this.isLoggedIn()){
+            return false;
+        }
+        return JSON.parse(localStorage.getItem('user'));
     }
 }

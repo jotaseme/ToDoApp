@@ -4,19 +4,25 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
+import { HomeComponent } from './components/home.component';
+import { UserInfoComponent } from './components/user-info.component'
 import { AppRoutingModule }     from './app-routing.module';
 import { FormsModule } from "@angular/forms";
 import { LoginService } from "./services/login.service";
 import { UserService } from "./services/user.service";
+import { SpinnerService } from "./services/spinner.service";
 import { HttpModule } from '@angular/http';
-import {AuthModule} from "./http/auth.module";
+import { AuthModule } from "./http/auth.module";
+import { AuthService } from "./services/auth.service";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent,
+    UserInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +33,10 @@ import {AuthModule} from "./http/auth.module";
     AuthModule,
   ],
   providers: [
-      LoginService,
-      UserService,
+    LoginService,
+    UserService,
+    AuthService,
+    SpinnerService,
   ],
   bootstrap: [AppComponent]
 })
