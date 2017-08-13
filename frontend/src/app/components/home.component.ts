@@ -15,6 +15,10 @@ import {HttpCustom, HttpFormErrors} from "../http/custom.http";
 export class HomeComponent implements OnInit{
     @ViewChild('addTaskModal')
     modal: ModalComponent;
+
+    @ViewChild('deleteTaskModal')
+    modalDelete: ModalComponent;
+
     private task: Task = new Task();
     private allStatus:Status[];
     errors: HttpFormErrors = new HttpFormErrors();
@@ -36,8 +40,7 @@ export class HomeComponent implements OnInit{
                 this.tasks = res;
             })
             .catch(err=>{
-                this.spinnerService.display(false)
-                ;console.log(err)
+                console.log(err);
             });
         this.statusService.getStatus()
             .then(res=>{
@@ -62,12 +65,13 @@ export class HomeComponent implements OnInit{
             return false;
         }
         this.errors = new HttpFormErrors();
+        this.modal.close();
         this.spinnerService.display(true);
         this.taskService.postTask(this.task)
             .then(res => {
                 this.spinnerService.display(false);
                 this.tasks.push(res);
-                this.modal.close();
+
                 this.task = new Task();
             })
             .catch(res => {
@@ -82,11 +86,32 @@ export class HomeComponent implements OnInit{
         this.modal.open();
     }
 
+    removeTaskModal(task:Task){
+        this.task = task;
+        this.modalDelete.open();
+    }
+
     editTask(){
+        this.errors = new HttpFormErrors();
+        this.modal.close();
+        this.spinnerService.display(true);
         this.taskService.editTask(this.task)
             .then(res => {
                 this.spinnerService.display(false);
-                this.modal.close();
+                this.task = new Task();
+            })
+            .catch(res => {
+                this.spinnerService.display(false);
+                this.errors = this.http.handleError(res);
+            });
+    }
+
+    deleteTask(){
+        this.spinnerService.display(true);
+        this.taskService.deleteTask(this.task)
+            .then(res => {
+                this.tasks.splice(this.tasks.indexOf(this.task),1);
+                this.spinnerService.display(false);
                 this.task = new Task();
             })
             .catch(res => {

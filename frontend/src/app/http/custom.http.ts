@@ -61,7 +61,7 @@ export class HttpCustom {
 
     delete(url, data = null) {
         if (tokenNotExpired()) {
-            return this.authHttp.post(url, data);
+            return this.authHttp.delete(url, data);
         } else {
             this.toastr.warning('Su sesión ha caducado!', 'Oops!');
             this.route.navigate(['/login']);

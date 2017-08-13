@@ -1,9 +1,33 @@
-<div class="col-lg-4 offset-lg-4 tasks">
+<div class="col-lg-6 offset-lg-3 tasks">
+
+
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Task's title" aria-describedby="basic-addon2">
+        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></span>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <select class="form-control">
+                <option value="" disabled selected>Task status</option>
+                <option *ngFor="let status of allStatus" value="{{ status.id }}">{{ status.name }}</option>
+            </select>
+        </div>
+
+        <div class="col-lg-6">
+            <select class="form-control">
+                <option value="" disabled selected>Order</option>
+                <option value="1" selected>Ascendente</option>
+                <option value="2" selected>Descendente</option>
+            </select>
+        </div>
+    </div>
+
+    <hr/>
     <nav class="navbar navbar-fixed-top navbar-inverse py-0 bg-primary navbar-toggleable-md py-md-0">
         <button class="navbar-toggler navbar-toggler-right mt-1" type="button" data-toggle="collapse" data-target="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars"></i>
         </button>
-        <a class="navbar-brand" href="#">Tasks</a>
+        <a class="navbar-brand" href="#"># Tasks</a>
         <div class="navbar-collapse collapse" id="navbarNav">
             <ul class="navbar-nav">
 
@@ -15,21 +39,21 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Task title</th>
-            <th>Task description</th>
-            <th>Task status</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let task of tasks">
-            <th scope="row">{{ task.id }}</th>
+            <td>{{ task.id }}</td>
             <td>{{ task.title }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.status.name }}</td>
             <td>
                 <a (click)="editTaskModal(task)"><i class="fa fa-pencil-square-o task-list"></i></a>
-                <a href=""><i class="fa fa-trash-o task-list"></i></a>
+                <a (click)="removeTaskModal(task)"><i class="fa fa-trash-o task-list"></i></a>
             </td>
         </tr>
         </tbody>
@@ -61,3 +85,15 @@
     </form>
 </modal>
 
+<modal #deleteTaskModal [keyboard]="false" [backdrop]="'static'">
+    <modal-header [show-close]="false">
+        <h4 class="modal-title">Removing task - {{ task.title }}</h4>
+    </modal-header>
+    <modal-body>
+        ¿Estás seguro de que deseas borrar esta tarea? Si lo haces, no podrás recuperarla.
+    </modal-body>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dismiss()">Cancel</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTask()">Delete task</button>
+    </modal-footer>
+</modal>

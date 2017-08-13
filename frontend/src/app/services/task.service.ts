@@ -46,5 +46,14 @@ export class TaskService {
                 return Promise.reject(error)
             });
     }
+    deleteTask(task: Task){
+        return this.httpCustom
+            .delete(this.taskUrl+'tasks/'+task.id)
+            .toPromise()
+            .then()
+            .catch(error => {
+                return Promise.reject(error)
+            });
+    }
 
 }

@@ -193,14 +193,6 @@ class Task
         $this->user = $user;
     }
 
-    /*
-     * @return int
-     * @Groups({"task_detail"})
-     */
-    public function getStatusId(){
-        return $this->getStatus()->getId();
-    }
-
     /**
      * @ORM\PrePersist
      */
