@@ -1,1 +1,26 @@
-<h1>{{ title }}</h1>
+<div class="container col-sm-4 offset-sm-4 register">
+    <h2 class="form-signin-heading">Regístrate en la app</h2>
+    <form #registerForm = "ngForm" (ngSubmit)="register()">
+        <label for="username" class="sr-only">Username</label>
+        <input [(ngModel)]="user.username" type="text" id="username" #username="ngModel" name="username" class="form-control" placeholder="Username" required autofocus="true">
+        <span *ngFor="let err of errors.fields.username" class="form-error-field">{{ err }}</span>
+
+        <label for="username" class="sr-only">Name</label>
+        <input [(ngModel)]="user.name" type="text" id="name" #name="ngModel" name="name" class="form-control" placeholder="Name" required>
+        <span *ngFor="let err of errors.fields.name" class="form-error-field">{{ err }}</span>
+
+        <label for="surname" class="sr-only">Apellido</label>
+        <input [(ngModel)]="user.surname" type="text" id="surname" #surname="ngModel" name="surname" class="form-control" placeholder="Apellido" required>
+        <span *ngFor="let err of errors.fields.surname" class="form-error-field">{{ err }}</span>
+
+        <label for="email" class="sr-only">Email</label>
+        <input [(ngModel)]="user.email" type="email" id="email" #email="ngModel" name="email" class="form-control" placeholder="Email" required>
+        <span *ngFor="let err of errors.fields.email" class="form-error-field">{{ err }}</span>
+
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input [(ngModel)]="user.password" type="password" id="inputPassword" #password="ngModel" name="password" class="form-control" placeholder="Password" required>
+        <span *ngFor="let err of errors.fields.password" class="form-error-field">{{ err }}</span>
+        <hr/>
+        <input [disabled]="!username.valid || !password.valid || !name.valid || !email.valid || !surname.valid" type="submit" value="Log in" class="btn btn-lg btn-primary btn-block">
+    </form>
+</div>

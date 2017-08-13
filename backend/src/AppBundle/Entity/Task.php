@@ -193,7 +193,6 @@ class Task
     public function setCreatedAtValue()
     {
         $this->createdAt = new \DateTime();
-        $this->status = 1;
     }
 
     /**

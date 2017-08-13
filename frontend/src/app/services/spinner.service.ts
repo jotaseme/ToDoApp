@@ -6,7 +6,6 @@ export class SpinnerService {
     public status: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     display(value: boolean) {
-        console.log("DISPLAY SPINNER" + value);
         this.status.next(value);
     }
 }

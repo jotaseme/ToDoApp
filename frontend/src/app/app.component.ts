@@ -9,10 +9,15 @@ import {SpinnerService} from "./services/spinner.service";
 export class AppComponent implements OnInit{
     showLoader: boolean;
 
+
     constructor(
         private spinnerService: SpinnerService,
     ) {}
 
+
+    createTask(){
+        console.log("create task");
+    }
     ngOnInit(): void {
         this.spinnerService.status.subscribe((val: boolean) => {
             this.showLoader = val;

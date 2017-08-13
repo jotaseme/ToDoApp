@@ -22,7 +22,5 @@ export class UserInfoComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        console.log("USER-INFO");
-        console.log(this.getUser());
     }
 }

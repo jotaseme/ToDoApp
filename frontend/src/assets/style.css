@@ -1,6 +1,27 @@
-.login{
-    padding-top: 10em;
+.login, .register{
+    padding-top: 8em;
 }
 .login h2{
     padding-bottom: 1em;
+}
+
+.login, .register input{
+    margin-top: 1em;
+}
+
+.form-error-field{
+    color: red;
+    font-style: italic;
+}
+
+.tasks{
+    padding-top: 5em;
+}
+
+.custom{
+    margin-left: 17em;
+}
+
+.modal-body input, textarea, select{
+    margin-top: 1em;
 }

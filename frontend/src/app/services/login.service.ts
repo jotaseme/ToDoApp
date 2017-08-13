@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { Router } from "@angular/router";
 import { Token } from "../models/token";
+import { tokenNotExpired } from "angular2-jwt";
 
 @Injectable()
 export class LoginService {
@@ -11,7 +12,8 @@ export class LoginService {
                 public http: Http) { }
 
     login(username: string, password: string): Promise<Token> {
-        return this.http.post(this.userLoginUrl, {'_username': username, '_password': password})
+        return this.http
+            .post(this.userLoginUrl, {'_username': username, '_password': password})
             .toPromise()
             .then(response =>  {
                 return response.json() as Token

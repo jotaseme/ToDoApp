@@ -3,7 +3,7 @@
         <a class="nav-link" routerLink="/login"><i class="fa fa-sign-in"></i> Log in</a>
     </li>
     <li *ngIf="!getUser()" class="nav-item">
-        <a class="nav-link" routerLink="/"><i class="fa fa-user"></i> Registro</a>
+        <a class="nav-link" routerLink="/register"><i class="fa fa-user"></i> Registro</a>
     </li>
     <li *ngIf="getUser()" class="nav-item">
         <a class="nav-link" routerLink="/"><i class="fa fa-user"></i> {{ getUser().username }}</a>
