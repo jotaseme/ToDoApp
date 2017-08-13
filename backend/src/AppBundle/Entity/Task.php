@@ -60,7 +60,7 @@ class Task
     private $updatedAt;
 
     /**
-     * @var \Status
+     * @var Status
      *
      * @ORM\ManyToOne(targetEntity="Status")
      * @ORM\JoinColumns({
@@ -72,7 +72,7 @@ class Task
     private $status;
 
     /**
-     * @var \User
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
@@ -162,7 +162,7 @@ class Task
     }
 
     /**
-     * @return \Status
+     * @return Status
      */
     public function getStatus()
     {
@@ -170,7 +170,7 @@ class Task
     }
 
     /**
-     * @param \Status $status
+     * @param Status $status
      */
     public function setStatus($status)
     {
@@ -178,7 +178,7 @@ class Task
     }
 
     /**
-     * @return \User
+     * @return User
      */
     public function getUser()
     {
@@ -186,11 +186,19 @@ class Task
     }
 
     /**
-     * @param \User $user
+     * @param User $user
      */
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /*
+     * @return int
+     * @Groups({"task_detail"})
+     */
+    public function getStatusId(){
+        return $this->getStatus()->getId();
     }
 
     /**

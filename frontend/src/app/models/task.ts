@@ -7,4 +7,5 @@ export class Task {
     description: string;
     status: Status;
     user: User;
+    status_id: number;
 }

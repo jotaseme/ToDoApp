@@ -25,3 +25,7 @@
 .modal-body input, textarea, select{
     margin-top: 1em;
 }
+
+.task-list{
+    margin-left: .5em;
+}

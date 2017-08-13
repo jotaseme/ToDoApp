@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { LoginService } from "../services/login.service";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {Task} from "../models/task";
 import {SpinnerService} from "../services/spinner.service";
@@ -59,12 +57,35 @@ export class HomeComponent implements OnInit{
     }
 
     addTask(){
+        if(this.task.id){
+            this.editTask();
+            return false;
+        }
         this.errors = new HttpFormErrors();
         this.spinnerService.display(true);
         this.taskService.postTask(this.task)
             .then(res => {
                 this.spinnerService.display(false);
                 this.tasks.push(res);
+                this.modal.close();
+                this.task = new Task();
+            })
+            .catch(res => {
+                this.spinnerService.display(false);
+                this.errors = this.http.handleError(res);
+            });
+    }
+
+    editTaskModal(task:Task){
+        this.task = task;
+        this.task.status_id = task.status.id;
+        this.modal.open();
+    }
+
+    editTask(){
+        this.taskService.editTask(this.task)
+            .then(res => {
+                this.spinnerService.display(false);
                 this.modal.close();
                 this.task = new Task();
             })

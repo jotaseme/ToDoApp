@@ -19,7 +19,7 @@ class Status
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @Groups({"status_detail"})
+     * @Groups({"status_detail", "task_detail"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class Status
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=45, nullable=true)
-     * @Groups({"status_detail","task_detail"})
+     * @Groups({"status_detail", "task_detail"})
      */
     private $name;
 

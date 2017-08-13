@@ -36,7 +36,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
     FormsModule,
     AuthModule,
     ToastModule.forRoot(),
-    Ng2Bs3ModalModule
+    Ng2Bs3ModalModule,
   ],
   providers: [
     LoginService,

@@ -27,6 +27,16 @@ export class TaskService {
             });
     }
 
+    editTask(task: Task):Promise<Task>{
+        return this.httpCustom
+            .patch(this.taskUrl+'tasks/'+task.id,{task: task})
+            .toPromise()
+            .then(res => res.json() as Task)
+            .catch(error => {
+                return Promise.reject(error)
+            });
+    }
+
     getTasks():Promise<Task[]>{
         return this.httpCustom
             .get(this.taskUrl+'tasks')

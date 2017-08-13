@@ -17,7 +17,7 @@ class TaskType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('status', EntityType::class, array(
+            ->add('status_id', EntityType::class, array(
                 'property_path' => 'status',
                 'class' => 'AppBundle:Status'));
     }
@@ -29,6 +29,7 @@ class TaskType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Task',
+            'allow_extra_fields' => true,
             'csrf_protection' => false,
         ));
     }

@@ -52,7 +52,7 @@ export class HttpCustom {
 
     patch(url, data = null) {
         if (tokenNotExpired()) {
-            return this.authHttp.post(url, data);
+            return this.authHttp.patch(url, data);
         } else {
             this.toastr.warning('Su sesión ha caducado!', 'Oops!');
             this.route.navigate(['/login']);

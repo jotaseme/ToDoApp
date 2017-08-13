@@ -15,9 +15,10 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Task titles</th>
+            <th>Task title</th>
             <th>Task description</th>
             <th>Task status</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,10 @@
             <td>{{ task.title }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.status.name }}</td>
+            <td>
+                <a (click)="editTaskModal(task)"><i class="fa fa-pencil-square-o task-list"></i></a>
+                <a href=""><i class="fa fa-trash-o task-list"></i></a>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -34,14 +39,15 @@
 <modal #addTaskModal>
     <form class="add-task" #registerForm = "ngForm" (ngSubmit)="addTask()">
     <modal-header>
-        <h4 class="modal-title">¡Add a new Task!</h4>
+        <h4 *ngIf="!task.id" class="modal-title">¡Add a new Task!</h4>
+        <h4 *ngIf="task.id" class="modal-title">Editing: {{ task.title }}</h4>
     </modal-header>
     <modal-body>
         <input [(ngModel)]="task.title" type="text" id="title" #title="ngModel" name="title" class="form-control" placeholder="Title" required autofocus="true">
         <span *ngFor="let err of errors.fields.title" class="form-error-field">{{ err }}</span>
         <textarea [(ngModel)]="task.description" type="textarea" id="description" #description="ngModel" name="description" class="form-control" placeholder="Description" required></textarea>
         <span *ngFor="let err of errors.fields.description" class="form-error-field">{{ err }}</span>
-        <select [(ngModel)]="task.status" class="form-control" id="status" #status="ngModel" name="status" required>
+        <select [(ngModel)]="task.status_id" class="form-control" id="status" #status="ngModel" name="status" required>
             <option value="" disabled selected>Task status</option>
             <option *ngFor="let status of allStatus" value="{{ status.id }}">{{ status.name }}</option>
         </select>
@@ -49,7 +55,8 @@
     </modal-body>
     <modal-footer>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dismiss()">Cancel</button>
-        <input [disabled]=" !title.valid || !description.valid || !status.valid" type="submit" value="Add task" class="btn btn-primary">
+        <input *ngIf="!task.id" [disabled]=" !title.valid || !description.valid || !status.valid" type="submit" value="Add task" class="btn btn-primary">
+        <input *ngIf="task.id" [disabled]=" !title.valid || !description.valid || !status.valid" type="submit" value="Edit task" class="btn btn-primary">
     </modal-footer>
     </form>
 </modal>
