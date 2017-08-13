@@ -53,7 +53,7 @@ class TasksController extends Controller
             $task->setUser($user);
             $em->persist($task);
             $em->flush();
-            return $user;
+            return $task;
         }
         return $form;
     }

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +17,9 @@ class TaskType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('status');
+            ->add('status', EntityType::class, array(
+                'property_path' => 'status',
+                'class' => 'AppBundle:Status'));
     }
     
     /**

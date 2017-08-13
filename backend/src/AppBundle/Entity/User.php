@@ -32,7 +32,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      *
      * @Assert\NotBlank()
      * @Groups({"user_detail"})

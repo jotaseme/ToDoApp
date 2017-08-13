@@ -15,17 +15,17 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>Task titles</th>
+            <th>Task description</th>
+            <th>Task status</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+        <tr *ngFor="let task of tasks">
+            <th scope="row">{{ task.id }}</th>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.status.name }}</td>
         </tr>
         </tbody>
     </table>
@@ -38,14 +38,14 @@
     </modal-header>
     <modal-body>
         <input [(ngModel)]="task.title" type="text" id="title" #title="ngModel" name="title" class="form-control" placeholder="Title" required autofocus="true">
-        <!--<span *ngFor="let err of errors.fields.title" class="form-error-field">{{ err }}</span>-->
+        <span *ngFor="let err of errors.fields.title" class="form-error-field">{{ err }}</span>
         <textarea [(ngModel)]="task.description" type="textarea" id="description" #description="ngModel" name="description" class="form-control" placeholder="Description" required></textarea>
+        <span *ngFor="let err of errors.fields.description" class="form-error-field">{{ err }}</span>
         <select [(ngModel)]="task.status" class="form-control" id="status" #status="ngModel" name="status" required>
             <option value="" disabled selected>Task status</option>
-            <option value="todo">To Do</option>
-            <option value="doing">Doing</option>
-            <option value="done">Done</option>
+            <option *ngFor="let status of allStatus" value="{{ status.id }}">{{ status.name }}</option>
         </select>
+        <span *ngFor="let err of errors.fields.status" class="form-error-field">{{ err }}</span>
     </modal-body>
     <modal-footer>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="dismiss()">Cancel</button>

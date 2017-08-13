@@ -3,38 +3,25 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { Router } from "@angular/router";
 import { AuthHttp} from "angular2-jwt";
-import { User } from "../models/user";
 import { HttpCustom } from "../http/custom.http";
 import { Http } from "@angular/http";
-import {Task} from "../models/task";
+import { Status } from "../models/status";
 
 @Injectable()
-export class TaskService {
+export class StatusService {
     private taskUrl = 'http://localhost:8000/api/v1/';
     constructor(
         public router: Router,
         public httpCustom: HttpCustom,
-        public authHttp: AuthHttp,
         public http: Http) { }
 
-    postTask(task: Task):Promise<Task>{
+    getStatus():Promise<Status[]>{
         return this.httpCustom
-            .post(this.taskUrl+'tasks',{task: task})
+            .get(this.taskUrl+'status')
             .toPromise()
-            .then(res => res.json() as Task)
+            .then(res => res.json() as Status[])
             .catch(error => {
                 return Promise.reject(error)
             });
     }
-
-    getTasks():Promise<Task[]>{
-        return this.httpCustom
-            .get(this.taskUrl+'tasks')
-            .toPromise()
-            .then(res => res.json() as Task[])
-            .catch(error => {
-                return Promise.reject(error)
-            });
-    }
-
 }

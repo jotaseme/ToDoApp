@@ -11,6 +11,7 @@ import { FormsModule } from "@angular/forms";
 import { LoginService } from "./services/login.service";
 import { UserService } from "./services/user.service";
 import { TaskService } from "./services/task.service";
+import { StatusService } from "./services/status.service";
 import { SpinnerService } from "./services/spinner.service";
 import { HttpModule } from '@angular/http';
 import { AuthModule } from "./http/auth.module";
@@ -41,6 +42,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
     LoginService,
     UserService,
     TaskService,
+    StatusService,
     AuthService,
     SpinnerService,
     HttpCustom,

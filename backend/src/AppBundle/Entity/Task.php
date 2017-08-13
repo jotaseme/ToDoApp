@@ -4,13 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Task
  *
- * @ORM\Table(name="tasks", indexes={@ORM\Index(name="pk_users_idx", columns={"user"})})
+ * @ORM\Table(name="tasks", indexes={@ORM\Index(name="pk_users_idx", columns={"user"}), @ORM\Index(name="fk_Task_status_idx", columns={"status"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TaskRepository")
  * @ORM\HasLifecycleCallbacks()
+ *
  */
 class Task
 {
@@ -27,7 +29,8 @@ class Task
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
      * @Groups({"task_detail"})
      */
     private $title;
@@ -35,24 +38,17 @@ class Task
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     * @Assert\NotBlank()
      * @Groups({"task_detail"})
+     *
      */
     private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=100, nullable=true)
-     * @Groups({"task_detail"})
-     */
-    private $status;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
-     * @Groups({"task_detail"})
      */
     private $createdAt;
 
@@ -60,18 +56,28 @@ class Task
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
-     * @Groups({"task_detail"})
      */
     private $updatedAt;
 
     /**
-     * @var \AppBundle\Entity\User
+     * @var \Status
+     *
+     * @ORM\ManyToOne(targetEntity="Status")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="status", referencedColumnName="id")
+     * })
+     * @Assert\NotBlank()
+     * @Groups({"task_detail"})
+     */
+    private $status;
+
+    /**
+     * @var \User
      *
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user", referencedColumnName="id")
      * })
-     * @Groups({"task_detail"})
      */
     private $user;
 
@@ -124,22 +130,6 @@ class Task
     }
 
     /**
-     * @return string
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -150,7 +140,7 @@ class Task
     /**
      * @param \DateTime $createdAt
      */
-    public function setCreatedAt(\DateTime $createdAt)
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
@@ -166,13 +156,29 @@ class Task
     /**
      * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt)
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }
 
     /**
-     * @return \AppBundle\Entity\User
+     * @return \Status
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param \Status $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return \User
      */
     public function getUser()
     {
@@ -180,9 +186,9 @@ class Task
     }
 
     /**
-     * @param \AppBundle\Entity\User $user
+     * @param \User $user
      */
-    public function setUser(User $user)
+    public function setUser($user)
     {
         $this->user = $user;
     }
