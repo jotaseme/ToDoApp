@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Form;
+namespace AppBundle\Filter;
 
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Symfony\Component\Form\AbstractType;
@@ -15,7 +15,10 @@ class TaskFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', Filters\TextFilterType::class);
+            ->add('title', Filters\TextFilterType::class)
+            ->add('status', Filters\EntityFilterType::class, array(
+                'class' => 'AppBundle:Status'
+            ));
     }
     
     /**

@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="input-group">
+        <input [(ngModel)]="filter.title" (keyup)="search($event)" type="text" class="form-control" placeholder="Task's title" aria-describedby="basic-addon2">
+        <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></span>
+    </div>
+    <div class="col-lg-6">
+        <select [(ngModel)]="filter.status" (change)="search($event)" class="form-control">
+            <option value="" disabled selected>Task status</option>
+            <option *ngFor="let status of allStatus" value="{{ status.id }}">{{ status.name }}</option>
+        </select>
+    </div>
+
+    <div class="col-lg-6">
+        <select class="form-control">
+            <option value="" disabled selected>Order</option>
+            <option value="1" selected>Ascendente</option>
+            <option value="2" selected>Descendente</option>
+        </select>
+    </div>
+</div>

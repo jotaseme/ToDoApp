@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login.component';
 import { RegisterComponent } from './components/register.component';
 import { HomeComponent } from './components/home.component';
-import { UserInfoComponent } from './components/user-info.component'
+import { UserInfoComponent } from './components/user-info.component';
+import { FilterComponent } from './components/filter.component';
 import { AppRoutingModule }     from './app-routing.module';
 import { FormsModule } from "@angular/forms";
 import { LoginService } from "./services/login.service";
@@ -27,6 +28,7 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
     RegisterComponent,
     HomeComponent,
     UserInfoComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,

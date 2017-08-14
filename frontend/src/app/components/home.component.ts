@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit{
     private allStatus:Status[];
     errors: HttpFormErrors = new HttpFormErrors();
     private tasks: Task[] = [];
-    timeSearch: any;
 
     constructor(
         private spinnerService:SpinnerService,
@@ -123,14 +122,7 @@ export class HomeComponent implements OnInit{
             });
     }
 
-    search(event){
-        if (this.timeSearch){clearTimeout(this.timeSearch);}
-        this.timeSearch = setTimeout(() => {
-            this.taskService.getTasks(this.filter)
-                .then(res => {
-                    this.tasks = res;
-                })
-                .catch();
-        },500);
+    search(event):void{
+        this.tasks = event.tasks;
     }
 }

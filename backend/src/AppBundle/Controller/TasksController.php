@@ -2,7 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
-use AppBundle\Form\TaskFilterType;
+use AppBundle\Filter\TaskFilterType;
 use AppBundle\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
