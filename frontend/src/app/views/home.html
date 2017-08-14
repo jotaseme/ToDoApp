@@ -30,7 +30,9 @@
             <td>{{ task.id }}</td>
             <td>{{ task.title }}</td>
             <td>{{ task.description }}</td>
-            <td>{{ task.status.name }}</td>
+            <td *ngIf="task.status.slug=='todo'"><span *ngIf="task.status.slug=='todo'" class="badge badge-default">{{ task.status.name }}</span></td>
+            <td *ngIf="task.status.slug=='doing'"><span *ngIf="task.status.slug=='doing'" class="badge badge-primary">{{ task.status.name }}</span></td>
+            <td *ngIf="task.status.slug=='done'"><span *ngIf="task.status.slug=='done'" class="badge badge-success">{{ task.status.name }}</span></td>
             <td>
                 <a (click)="editTaskModal(task)"><i class="fa fa-pencil-square-o task-list"></i></a>
                 <a (click)="removeTaskModal(task)"><i class="fa fa-trash-o task-list"></i></a>

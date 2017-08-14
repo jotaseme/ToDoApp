@@ -19,7 +19,7 @@ export class TaskService {
 
     postTask(task: Task):Promise<Task>{
         return this.httpCustom
-            .post(this.taskUrl+'tasks',{task: task})
+            .post(this.taskUrl,{task: task})
             .toPromise()
             .then(res => res.json() as Task)
             .catch(error => {
@@ -29,7 +29,7 @@ export class TaskService {
 
     editTask(task: Task):Promise<Task>{
         return this.httpCustom
-            .patch(this.taskUrl+'tasks/'+task.id,{task: task})
+            .patch(this.taskUrl+'/'+task.id,{task: task})
             .toPromise()
             .then(res => res.json() as Task)
             .catch(error => {
@@ -49,7 +49,7 @@ export class TaskService {
 
     deleteTask(task: Task){
         return this.httpCustom
-            .delete(this.taskUrl+'tasks/'+task.id)
+            .delete(this.taskUrl+'/'+task.id)
             .toPromise()
             .then()
             .catch(error => {

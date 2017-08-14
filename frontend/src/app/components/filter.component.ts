@@ -1,10 +1,7 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { TaskService } from "../services/task.service";
-import { StatusService } from "../services/status.service";
-import { HttpCustom } from "../http/custom.http";
 import { Filter } from "../models/filter";
-import { Task } from "../models/task";
-import {Status} from "../models/status";
+import { Status } from "../models/status";
 
 @Component({
     selector: 'task-filter',
@@ -26,7 +23,7 @@ export class FilterComponent implements OnInit{
     ngOnInit(): void {
     }
 
-    search(event){
+    search(){
         if (this.timeSearch){clearTimeout(this.timeSearch);}
         this.timeSearch = setTimeout(() => {
             this.taskService.getTasks(this.filter)
@@ -36,5 +33,4 @@ export class FilterComponent implements OnInit{
                 .catch();
         },200);
     }
-
 }

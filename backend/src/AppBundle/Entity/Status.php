@@ -35,7 +35,7 @@ class Status
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=45, nullable=true)
-     * @Groups({"status_detail"})
+     * @Groups({"status_detail", "task_detail"})
      */
     private $slug;
 
