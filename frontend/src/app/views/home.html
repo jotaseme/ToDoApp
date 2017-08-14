@@ -1,8 +1,6 @@
 <div class="col-lg-6 offset-lg-3 tasks">
-
-
     <div class="input-group">
-        <input type="text" class="form-control" placeholder="Task's title" aria-describedby="basic-addon2">
+        <input [(ngModel)]="filter.title" (keyup)="search($event)" type="text" class="form-control" placeholder="Task's title" aria-describedby="basic-addon2">
         <span class="input-group-addon" id="basic-addon2"><i class="fa fa-search"></i></span>
     </div>
     <div class="row">

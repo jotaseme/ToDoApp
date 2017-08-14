@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "52cb76f1f25996ff500fbb61af44adf5",
-    "content-hash": "f46489d896782d5fc00f370afcc0f81b",
+    "hash": "f815cb61e04f678b77ddfdd53babe4c5",
+    "content-hash": "9d9289d7225230d15bf5e554daf7bd7b",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1092,16 +1092,16 @@
         },
         {
             "name": "lexik/form-filter-bundle",
-            "version": "v5.0.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "28c09d6d9f278875ca9648c4b66eeb457c37d3b6"
+                "reference": "b8200d3bb094c46db36c0df50d216610a3788845"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/28c09d6d9f278875ca9648c4b66eeb457c37d3b6",
-                "reference": "28c09d6d9f278875ca9648c4b66eeb457c37d3b6",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/b8200d3bb094c46db36c0df50d216610a3788845",
+                "reference": "b8200d3bb094c46db36c0df50d216610a3788845",
                 "shasum": ""
             },
             "require": {
@@ -1148,7 +1148,7 @@
                 "form",
                 "symfony"
             ],
-            "time": "2017-03-27 07:28:34"
+            "time": "2017-05-19 07:17:21"
         },
         {
             "name": "lexik/jwt-authentication-bundle",
@@ -2783,7 +2783,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "lexik/form-filter-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

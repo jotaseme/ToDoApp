@@ -6,6 +6,7 @@ import {TaskService} from "../services/task.service";
 import {StatusService} from "../services/status.service";
 import {Status} from "../models/status";
 import {HttpCustom, HttpFormErrors} from "../http/custom.http";
+import {Filter} from "../models/filter";
 
 @Component({
     selector: 'home',
@@ -18,11 +19,13 @@ export class HomeComponent implements OnInit{
 
     @ViewChild('deleteTaskModal')
     modalDelete: ModalComponent;
+    private filter:Filter = new Filter();
 
     private task: Task = new Task();
     private allStatus:Status[];
     errors: HttpFormErrors = new HttpFormErrors();
     private tasks: Task[] = [];
+    timeSearch: any;
 
     constructor(
         private spinnerService:SpinnerService,
@@ -118,5 +121,16 @@ export class HomeComponent implements OnInit{
                 this.spinnerService.display(false);
                 this.errors = this.http.handleError(res);
             });
+    }
+
+    search(event){
+        if (this.timeSearch){clearTimeout(this.timeSearch);}
+        this.timeSearch = setTimeout(() => {
+            this.taskService.getTasks(this.filter)
+                .then(res => {
+                    this.tasks = res;
+                })
+                .catch();
+        },500);
     }
 }

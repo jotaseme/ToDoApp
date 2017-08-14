@@ -28,7 +28,6 @@ export class HttpCustom {
     }
 
     post(url, data = null) {
-        console.log("HOLA");
         if (tokenNotExpired()) {
             return this.authHttp.post(url, data);
         }else{
@@ -112,6 +111,22 @@ export class HttpCustom {
         }
 
         return errors;
+    }
+
+    getURLSearchParams(name: string, parameters: Object): URLSearchParams {
+        let params = new URLSearchParams();
+        return this.generateParam(params, name, parameters);
+    }
+
+    private generateParam(params: URLSearchParams, name: string, parameters: Object): URLSearchParams {
+        for (let key in parameters) {
+            if (typeof parameters[key] === "object") {
+                params = this.generateParam(params, name+'['+key+']', parameters[key]);
+            } else {
+                params.set(name+'['+key+']', parameters[key].toString());
+            }
+        }
+        return params;
     }
 }
 

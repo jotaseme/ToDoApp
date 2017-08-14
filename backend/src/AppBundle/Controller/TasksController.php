@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Task;
+use AppBundle\Form\TaskFilterType;
 use AppBundle\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +19,16 @@ class TasksController extends Controller
      */
     public function getTasksAction(Request $request)
     {
-        $user = $this->getUser();
+        $form = $this->get('form.factory')->create(TaskFilterType::class);
         $em = $this->getDoctrine()->getManager();
-        return $em->getRepository('AppBundle:Task')
-            ->findAllByUser($user);
+        $query = $em->getRepository('AppBundle:Task')->findAllByUser($this->getUser());
+
+        if ($request->query->has($form->getName())) {
+            $form->submit($request->query->get($form->getName()));
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $query);
+        }
+        $forms = $query->getQuery()->getResult();
+        return $forms;
     }
 
     /**

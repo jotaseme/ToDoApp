@@ -96,3 +96,4 @@ lexik_form_filter:
         doctrine_orm: true
         doctrine_dbal: false
         doctrine_mongodb: false
+    condition_pattern: text.contains
