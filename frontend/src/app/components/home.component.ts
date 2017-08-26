@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
-import {Task} from "../models/task";
-import {SpinnerService} from "../services/spinner.service";
-import {TaskService} from "../services/task.service";
-import {StatusService} from "../services/status.service";
-import {Status} from "../models/status";
-import {HttpCustom, HttpFormErrors} from "../http/custom.http";
-import {Filter} from "../models/filter";
+import { ModalComponent } from "ng2-bs3-modal/ng2-bs3-modal";
+import { Task } from "../models/task";
+import { SpinnerService } from "../services/spinner.service";
+import { TaskService } from "../services/task.service";
+import { StatusService } from "../services/status.service";
+import { Status } from "../models/status";
+import { HttpCustom, HttpFormErrors } from "../http/custom.http";
 
 @Component({
     selector: 'home',
@@ -19,10 +18,9 @@ export class HomeComponent implements OnInit{
 
     @ViewChild('deleteTaskModal')
     modalDelete: ModalComponent;
-    private filter:Filter = new Filter();
 
     private task: Task = new Task();
-    private allStatus:Status[];
+    protected allStatus:Status[];
     errors: HttpFormErrors = new HttpFormErrors();
     private tasks: Task[] = [];
 
